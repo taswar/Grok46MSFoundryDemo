@@ -1,5 +1,7 @@
 # Grok 4.6 Microsoft Foundry Demo
 
+Blog post at [https://taswar.zeytinsoft.com/grok-4-6-csharp-developers-guide/](https://taswar.zeytinsoft.com/grok-4-6-csharp-developers-guide/)
+
 A .NET console app demonstrating how to call **Grok 4.6** (an xAI partner/MaaS model) hosted on **Azure AI Foundry** through `Microsoft.Extensions.AI`, using Entra ID (passwordless) authentication.
 
 Grok is not a native Azure OpenAI deployment, so the app talks to it via the generic `OpenAI.Chat.ChatClient` pointed at the Foundry model endpoint (with a `BearerTokenPolicy` and an `api-version` pipeline policy), then wraps it with `IChatClient` for tool calling, structured output, and multi-modal input.
