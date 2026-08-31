@@ -1,4 +1,4 @@
-# Grok46MSFoundryDemo
+# Grok 4.6 Microsoft Foundry Demo
 
 A .NET console app demonstrating how to call **Grok 4.6** (an xAI partner/MaaS model) hosted on **Azure AI Foundry** through `Microsoft.Extensions.AI`, using Entra ID (passwordless) authentication.
 
