@@ -91,7 +91,7 @@ The app pauses between cases (press Enter to advance) so you can review each sce
 
 ## Why not `AzureOpenAIClient`?
 
-`AzureOpenAIClient` builds requests against `/openai/deployments/{name}/...`, which only works for native Azure OpenAI deployments. Grok is a partner (MaaS) model, so this sample uses the plain `OpenAI.Chat.ChatClient` against the Foundry `/models` endpoint with a custom `api-version` query policy instead.
+Grok is a partner (MaaS) model, not a native Azure OpenAI deployment, so it can't be reached through `AzureOpenAIClient`'s `/openai/deployments/...` path. This sample uses the generic `OpenAI.Chat.ChatClient` against the Foundry model endpoint instead (mirrors the `Grok4.3` sample), with a `BearerTokenPolicy` for Entra ID auth and a custom `api-version` query policy.
 
 ## Troubleshooting
 
