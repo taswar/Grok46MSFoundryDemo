@@ -1,8 +1,19 @@
-# Grok 4.6 Microsoft Foundry Demo
+# Grok 4.6 C# Demo on Microsoft Foundry
 
-Blog post at [https://taswar.zeytinsoft.com/grok-4-6-csharp-developers-guide/](https://taswar.zeytinsoft.com/grok-4-6-csharp-developers-guide/)
+![Grok 4.6 for C# Developers: agentic AI in Microsoft Foundry](https://taswar.zeytinsoft.com/wp-content/uploads/2026/08/Grok-4.6-for-CSharp-Developers-Agentic-AI-in-Microsoft-Foundry.png)
 
-A .NET console app demonstrating how to call **Grok 4.6** (an xAI partner/MaaS model) hosted on **Azure AI Foundry** through `Microsoft.Extensions.AI`, using Entra ID (passwordless) authentication.
+[![Build](https://github.com/taswar/Grok46MSFoundryDemo/actions/workflows/dotnet.yml/badge.svg)](https://github.com/taswar/Grok46MSFoundryDemo/actions/workflows/dotnet.yml)
+![.NET 10](https://img.shields.io/badge/.NET-10-512BD4?logo=dotnet&logoColor=white)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)](CONTRIBUTING.md)
+
+- 📖 Full walkthrough: [Grok 4.6 in Microsoft Foundry for C# Developers](https://taswar.zeytinsoft.com/grok-4-6-csharp-developers-guide/?utm_source=github&utm_medium=readme&utm_campaign=Grok46MSFoundryDemo&utm_content=walkthrough)
+- ⭐ If this sample helps you, star the repo so other .NET developers can find it.
+- 🔁 Related: [Grok 4.7 C# Demo](https://github.com/taswar/Grok-4.7-Demo-CSharp), the next Grok version on Foundry
+- For more C# samples using other AI models, see [AI models for C# developers](https://taswar.zeytinsoft.com/foundry-ai-models-csharp/?utm_source=github&utm_medium=readme&utm_campaign=Grok46MSFoundryDemo&utm_content=ai-models-hub)
+- For my free ebook on prompt engineering, see [Prompt Engineering for .NET Developers](https://github.com/taswar/PromptEngineeringForDotNetDevelopers)
+
+A .NET 10 console app demonstrating how to call **Grok 4.6** (an xAI partner/MaaS model) hosted on **Microsoft Foundry** through `Microsoft.Extensions.AI`, using Entra ID (passwordless) authentication.
 
 Grok is not a native Azure OpenAI deployment, so the app talks to it via the generic `OpenAI.Chat.ChatClient` pointed at the Foundry model endpoint (with a `BearerTokenPolicy` and an `api-version` pipeline policy), then wraps it with `IChatClient` for tool calling, structured output, and multi-modal input.
 
@@ -13,11 +24,25 @@ Grok is not a native Azure OpenAI deployment, so the app talks to it via the gen
 3. **Structured, decision-ready output** — forcing a JSON response (`ChatResponseFormat.ForJsonSchema<VendorRecommendation>()`) to compare vendors.
 4. **Multi-modal input** — reviewing an architecture diagram image for single points of failure (requires an `architecture-diagram-spof.png` file in the working directory).
 
+The diagram Grok reviews in case 4 is included in the repo:
+
+<img src="architecture-diagram-spof.png" alt="Azure architecture diagram that Grok reviews for single points of failure" width="640"/>
+
+## Quick start
+
+```powershell
+git clone https://github.com/taswar/Grok46MSFoundryDemo.git
+cd Grok46MSFoundryDemo
+dotnet user-secrets set "AZURE_AI_ENDPOINT" "https://<your-resource>.services.ai.azure.com/models"
+az login
+dotnet run
+```
+
 ## Prerequisites
 
 - [.NET 10 SDK](https://dotnet.microsoft.com/download)
 - [Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli)
-- An Azure AI Foundry resource with a Grok model deployed
+- A Microsoft Foundry resource with a Grok 4.6 deployment
 - The **Cognitive Services User** (or **Azure AI Developer**) role assigned to your identity on the Foundry resource
 
 ## Required libraries
@@ -93,7 +118,7 @@ The app pauses between cases (press Enter to advance) so you can review each sce
 
 ## Why not `AzureOpenAIClient`?
 
-Grok is a partner (MaaS) model, not a native Azure OpenAI deployment, so it can't be reached through `AzureOpenAIClient`'s `/openai/deployments/...` path. This sample uses the generic `OpenAI.Chat.ChatClient` against the Foundry model endpoint instead (mirrors the `Grok4.3` sample), with a `BearerTokenPolicy` for Entra ID auth and a custom `api-version` query policy.
+Grok is a partner (MaaS) model, not a native Azure OpenAI deployment, so it can't be reached through `AzureOpenAIClient`'s `/openai/deployments/...` path. This sample uses the generic `OpenAI.Chat.ChatClient` against the Foundry model endpoint instead, with a `BearerTokenPolicy` for Entra ID auth and a custom `api-version` query policy.
 
 ## Troubleshooting
 
@@ -103,3 +128,7 @@ Grok is a partner (MaaS) model, not a native Azure OpenAI deployment, so it can'
 | `HTTP 404 (404) Resource not found` | Endpoint has the wrong path (e.g. `/openai/v1/`) or wrong deployment name | Use the `/models` path and confirm the deployment name matches Foundry |
 | `ManagedIdentityCredential ... IMDS ... 169.254.169.254` | Running locally without sign-in | Run `az login` |
 | `401 Unauthorized` | Missing role assignment on the Foundry resource | Ensure your identity has the **Cognitive Services User** role |
+
+## License
+
+This project is licensed under the MIT License. See [LICENSE](LICENSE).
